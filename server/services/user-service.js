@@ -26,11 +26,11 @@ class UserService {
     // создаем ссылку для активации
     const activationLink = uuid.v4();
     // генерируем default аватар
-    const png = jdenticon.toPng(name, 200);
+    const png = jdenticon.toPng(`${name}${Date.now()}`, 200);
     // генерируем имя файла
     const avatarName = `${name}_${Date.now()}.png`;
     // генерируем путь до файла
-    const avatarPath = path.join(__dirname, '../uploads', avatarName);
+    const avatarPath = path.join(__dirname, '/../uploads', avatarName);
     // записываем в файл аватар
     fs.writeFileSync(avatarPath, png);
     // создаем пользователя
@@ -38,7 +38,7 @@ class UserService {
       email,
       password: hashPass,
       name,
-      avatarUrl: `/uploads/${avatarPath}`,
+      avatarUrl: `/uploads/${avatarName}`,
       activationLink,
     });
     // отправляем письмо для активации аккаунта на почту

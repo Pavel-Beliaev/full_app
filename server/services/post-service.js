@@ -43,7 +43,7 @@ class PostService {
         ...new CommentDto(comment),
         user: new UserDto(comment.user).authorData(),
       })),
-      likeByUser: post.likes.some((like) => like.user.id === userId),
+      // likeByUser: post.likes.some((like) => like.user.id === userId),
     }));
     return { posts: isPostWithLikeUser };
   }
