@@ -47,12 +47,13 @@ class UserService {
       { activationLink },
       {
         isActivated: true,
-        activationLink: undefined,
       },
     );
     if (!user) {
       throw ApiError.BadRequest('Incorrect activation link');
     }
+    user.activationLink = undefined;
+    await user.save();
   }
 
   async login(email, password) {
