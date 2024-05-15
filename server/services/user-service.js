@@ -15,25 +15,16 @@ const PORT = process.env.PORT || '5000';
 
 class UserService {
   async register(name, email, password) {
-    // проверяем есть ли пользователь в базе
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
-      // показываем ошибку если есть
       throw ApiError.BadRequest('Email already exists');
     }
-    //иначе, хэшируем пароль
     const hashPass = await bcrypt.hash(password, 10);
-    // создаем ссылку для активации
     const activationLink = uuid.v4();
-    // генерируем default аватар
     const png = jdenticon.toPng(`${name}${Date.now()}`, 200);
-    // генерируем имя файла
     const avatarName = `${name}_${Date.now()}.png`;
-    // генерируем путь до файла
     const avatarPath = path.join(__dirname, '/../uploads', avatarName);
-    // записываем в файл аватар
     fs.writeFileSync(avatarPath, png);
-    // создаем пользователя
     const user = await UserModel.create({
       email,
       password: hashPass,
@@ -41,12 +32,10 @@ class UserService {
       avatarUrl: `/uploads/${avatarName}`,
       activationLink,
     });
-    // отправляем письмо для активации аккаунта на почту
     await MailService.sendActivationMail(
       email,
       `${process.env.API_URL}${PORT}/api/activate/${activationLink}`,
     );
-    // создаем новую model
     const userDto = new UserDto(user).enterData();
     return {
       user: userDto,
@@ -58,8 +47,9 @@ class UserService {
       { activationLink },
       {
         isActivated: true,
+        activationLink: undefined,
       },
-    ).exec();
+    );
     if (!user) {
       throw ApiError.BadRequest('Incorrect activation link');
     }
@@ -70,21 +60,16 @@ class UserService {
     if (!user) {
       throw ApiError.BadRequest('Wrong login or password');
     }
-    //  проверка активации email
     if (!user.isActivated) {
       throw ApiError.BadRequest('Email not activated');
     }
-    // сверка пароля
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
       throw ApiError.BadRequest('Wrong login or password');
     }
     const userDto = new UserDto(user).enterData();
-    // генерируем токен
     const token = TokenService.generateToken({ ...userDto });
-    // сохраняем токен
     await TokenService.saveToken(userDto.id, token.refreshToken);
-    // возвращаем новый объект с токенами и данными пользователя
     return {
       ...token,
       user: userDto,
@@ -112,8 +97,8 @@ class UserService {
     return { ...token, user: userDto };
   }
 
-  async current(id) {
-    const user = await UserModel.findById(id);
+  async current(userId) {
+    const user = await UserModel.findById(userId);
     if (!user) {
       throw ApiError.NotFoundError('User not found');
     }

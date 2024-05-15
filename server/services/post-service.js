@@ -48,8 +48,8 @@ class PostService {
     return { posts: isPostWithLikeUser };
   }
 
-  async getPostById(id, userId) {
-    const post = await PostModel.findById(id).populate('author').populate({
+  async getPostById(postId, userId) {
+    const post = await PostModel.findById(postId).populate('author').populate({
       path: 'comments',
       populate: 'user',
     });
@@ -63,13 +63,13 @@ class PostService {
         ...new CommentDto(comment),
         user: new UserDto(comment.user).authorData(),
       })),
-      likeByUser: post.likes.some((like) => like.user.id === userId),
+      // likeByUser: post.likes.some((like) => like.user.id === userId),
     };
     return { post: isPostWithLikeUser };
   }
 
-  async deletePost(id, userId) {
-    const post = await PostModel.findById(id).populate('author');
+  async deletePost(postId, userId) {
+    const post = await PostModel.findById(postId).populate('author');
     if (!post) {
       throw ApiError.NotFoundError('Post not found');
     }
@@ -77,7 +77,7 @@ class PostService {
     if (postDto.author.id !== userId) {
       throw ApiError.Forbidden();
     }
-    return sessionDelete(id);
+    return sessionDelete(postId);
   }
 }
 

@@ -27,8 +27,8 @@ class CommentService {
     return { comment: commentDto };
   }
 
-  async deleteComment(id, userId) {
-    const comment = await CommentModel.findById(id).populate('user');
+  async deleteComment(commentId, userId) {
+    const comment = await CommentModel.findById(commentId).populate('user');
     if (!comment) {
       throw ApiError.NotFoundError('Comment not found');
     }
@@ -36,7 +36,7 @@ class CommentService {
     if (commentDto.user.id !== userId) {
       throw ApiError.Forbidden();
     }
-    return sessionDelete(id);
+    return sessionDelete(commentId);
   }
 }
 

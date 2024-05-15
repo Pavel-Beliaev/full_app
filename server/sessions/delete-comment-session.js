@@ -3,18 +3,18 @@ const CommentModel = require('../models/comment-model');
 const PostModel = require('../models/post-model');
 const UserModel = require('../models/user-model');
 
-module.exports = async function (id) {
+module.exports = async function (commentId) {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    await CommentModel.deleteOne({ _id: id }).session(session);
+    await CommentModel.deleteOne({ _id: commentId }).session(session);
     await PostModel.updateMany(
-      { comments: id },
-      { $pull: { comments: id } },
+      { comments: commentId },
+      { $pull: { comments: commentId } },
     ).session(session);
     await UserModel.updateMany(
-      { comments: id },
-      { $pull: { comments: id } },
+      { comments: commentId },
+      { $pull: { comments: commentId } },
     ).session(session);
     await session.commitTransaction();
     await session.endSession();
