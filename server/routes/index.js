@@ -7,6 +7,7 @@ const {
   PostController,
   CommentController,
   LikeController,
+  FollowController,
 } = require('../controllers');
 const authMiddleware = require('../middlewares/auth-middleware');
 
@@ -77,5 +78,9 @@ router.delete('/comments/:id', authMiddleware, CommentController.deleteComment);
 //роуты лайков
 router.post('/likes', authMiddleware, LikeController.likePost);
 router.delete('/likes/:id', authMiddleware, LikeController.unLikePost);
+
+//роуты подписок
+router.post('/follow', authMiddleware, FollowController.followUser);
+router.delete('/follow/:id', authMiddleware, FollowController.unFollowUser);
 
 module.exports = router;
