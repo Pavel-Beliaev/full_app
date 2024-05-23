@@ -1,5 +1,4 @@
 const CommentService = require('../services/comment-service');
-const PostService = require('../services/post-service');
 
 class CommentController {
   async createComment(req, res, next) {

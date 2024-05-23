@@ -1,5 +1,4 @@
 const LikeService = require('../services/like-service');
-const ApiError = require('../exceptions/api-error');
 
 class LikeController {
   async likePost(req, res, next) {
@@ -18,7 +17,7 @@ class LikeController {
       const { id } = req.params;
       const userId = req.user.id;
       const likeData = await LikeService.unLikePost(id, userId);
-      return res.json('unLikePost');
+      return res.json(likeData);
     } catch (error) {
       next(error);
     }
