@@ -13,6 +13,10 @@ logs
 
 node_modules
 bower_components
+build
+
+# Folder with pictures
+uploads
 
 *.sublime*
 
