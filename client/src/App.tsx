@@ -1,6 +1,16 @@
-import React from 'react';
 import { Button } from '@nextui-org/react';
 
+const a = (b: string) => {
+  return 1;
+};
+
 export const App = () => {
-  return <Button color='primary'>Button</Button>;
+
+  // a('a');
+
+  return (
+    <div>
+      <Button color='primary'>Button</Button>
+    </div>
+  );
 };

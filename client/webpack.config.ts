@@ -1,96 +1,28 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import webpack from 'webpack';
-
-type Mode = 'development' | 'production';
+import { buildWebpack } from './config/buildWebpack/buildWebpack';
+import { BuildMode, BuildPaths, BuildPlatform } from './config/types';
 
 interface EnvVariables {
-  mode: Mode;
-  port: number;
+  mode?: BuildMode;
+  port?: number;
+  platform?: BuildPlatform;
 }
 
-export default (env: EnvVariables) => {
-  const isDev = env.mode == 'development';
-
-  const paths = {
+export default (env: EnvVariables): webpack.Configuration => {
+  const paths: BuildPaths = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: path.resolve(__dirname, 'build'),
     template: path.resolve(__dirname, 'public', 'index.html'),
+    public: path.resolve(__dirname, 'public'),
     src: path.resolve(__dirname, 'src'),
+    config: path.resolve(__dirname, 'eslint.config.js'),
   };
 
-  const config: webpack.Configuration = {
+  return buildWebpack({
+    port: env.port ?? 3000,
     mode: env.mode ?? 'development',
-    entry: paths.entry,
-    output: {
-      path: paths.output,
-      filename: '[name].[contenthash].js',
-      clean: true,
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: paths.template,
-      }),
-      isDev && new webpack.ProgressPlugin(),
-    ].filter(Boolean),
-    module: {
-      rules: [
-        {
-          test: /\.css$/i,
-          include: paths.src,
-          use: ['style-loader', 'css-loader', 'postcss-loader'],
-        },
-        {
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-env',
-                '@babel/preset-react',
-                '@babel/preset-typescript',
-              ],
-            },
-          },
-        },
-        {
-          test: /\.(png|jpe?g|gif|svg)$/i,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[path][name].[ext]',
-                outputPath: 'assets/images',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
-    devtool: isDev && 'inline-source-map',
-    devServer: isDev
-      ? {
-          static: {
-            directory: paths.output,
-          },
-          port: env.port ?? 3000,
-          open: true,
-          hot: true,
-          compress: true,
-          historyApiFallback: true,
-          client: {
-            overlay: {
-              errors: true,
-              warnings: false,
-            },
-          },
-        }
-      : undefined,
-  };
-  return config;
+    paths,
+    platform: env.platform ?? 'desktop',
+  });
 };
