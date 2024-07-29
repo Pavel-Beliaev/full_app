@@ -1,0 +1,8 @@
+version: '3'
+services:
+  express-app:
+    build: .
+    ports:
+      - '5000:5000'
+    environment:
+      DB_URL: 'mongodb+srv://paulo_nbt:Aspirine911@mongo-express-server.hurmdhe.mongodb.net/?retryWrites=true&w=majority&appName=mongo-express-server'

@@ -36,10 +36,8 @@ class UserService {
       email,
       `${process.env.API_URL}${PORT}/api/activate/${activationLink}`,
     );
-    const userDto = new UserDto(user).enterData();
-    return {
-      user: userDto,
-    };
+    // const userDto = new UserDto(user).enterData();
+    return { status: 'success' };
   }
 
   async activate(activationLink) {
@@ -69,12 +67,9 @@ class UserService {
       throw ApiError.BadRequest('Wrong login or password');
     }
     const userDto = new UserDto(user).enterData();
-    const token = TokenService.generateToken({ ...userDto });
+    const token = TokenService.generateToken({ ...user });
     await TokenService.saveToken(userDto.id, token.refreshToken);
-    return {
-      ...token,
-      user: userDto,
-    };
+    return token;
   }
 
   async logout(refreshToken) {
@@ -106,7 +101,7 @@ class UserService {
     const userDto = new UserDto(user);
     const token = TokenService.generateToken({ ...userDto });
     await TokenService.saveToken(userDto.id, token.refreshToken);
-    return { ...token, user: userDto };
+    return { ...token, ...userDto };
   }
 
   async getUserById(paramId, userId) {
@@ -119,7 +114,7 @@ class UserService {
       follower: userId,
       following: paramId,
     });
-    return { user: { ...userDto, isFollowing: Boolean(isFollowing) } };
+    return { ...userDto, isFollowing: Boolean(isFollowing) };
   }
 
   async updateUser(id, email, name, dateOfBirth, bio, location, filePath) {

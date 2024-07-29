@@ -27,7 +27,7 @@ class LikeService {
     post.likes.push(like);
     await post.save();
     const likeData = new LikeDto(like);
-    return { like: likeData };
+    return likeData;
   }
 
   async unLikePost(postId, userId) {

@@ -24,7 +24,7 @@ class CommentService {
     post.comments.push(comment);
     await post.save();
     const commentDto = new CommentDto(comment);
-    return { comment: commentDto };
+    return  commentDto ;
   }
 
   async deleteComment(commentId, userId) {
