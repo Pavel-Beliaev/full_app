@@ -5,7 +5,7 @@ export const commentsApi = api.injectEndpoints({
   endpoints: (build) => ({
     createComment: build.mutation<
       Comments,
-      { postId: string, content: string }
+      Partial<Comments>
     >({
       query: (body) => ({
         url: '/comments',
