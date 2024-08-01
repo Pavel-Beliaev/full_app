@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # образ линукс Alpine с версией node 14
 FROM node:19.5.0-alpine
 

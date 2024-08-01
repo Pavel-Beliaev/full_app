@@ -8,8 +8,11 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

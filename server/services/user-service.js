@@ -36,7 +36,6 @@ class UserService {
       email,
       `${process.env.API_URL}${PORT}/api/activate/${activationLink}`,
     );
-    // const userDto = new UserDto(user).enterData();
     return { status: 'success' };
   }
 
@@ -66,8 +65,8 @@ class UserService {
     if (!isPassEquals) {
       throw ApiError.BadRequest('Wrong login or password');
     }
-    const userDto = new UserDto(user).enterData();
-    const token = TokenService.generateToken({ ...user });
+    const userDto = new UserDto(user).login();
+    const token = TokenService.generateToken({ ...userDto });
     await TokenService.saveToken(userDto.id, token.refreshToken);
     return token;
   }
@@ -87,10 +86,10 @@ class UserService {
       throw ApiError.UnauthorizedError();
     }
     const user = await UserModel.findById(userData.id);
-    const userDto = new UserDto(user);
+    const userDto = new UserDto(user).login();
     const token = TokenService.generateToken({ ...userDto });
     await TokenService.saveToken(userDto.id, token.refreshToken);
-    return { ...token, user: userDto };
+    return token;
   }
 
   async current(userId) {
@@ -98,10 +97,8 @@ class UserService {
     if (!user) {
       throw ApiError.NotFoundError('User not found');
     }
-    const userDto = new UserDto(user);
-    const token = TokenService.generateToken({ ...userDto });
-    await TokenService.saveToken(userDto.id, token.refreshToken);
-    return { ...token, ...userDto };
+    const userDto = new UserDto(user).current();
+    return { ...userDto };
   }
 
   async getUserById(paramId, userId) {

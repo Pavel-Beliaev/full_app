@@ -35,14 +35,38 @@ module.exports = class UserDto {
     this.isActivated = model.isActivated;
   }
 
-  enterData() {
+  login() {
     return {
       id: this.id,
-      name: this.name,
       email: this.email,
-      isActivated: this.isActivated,
+      password: this.password,
+      name: this.name,
+      avatarUrl: this.avatarUrl,
+      dateOfBirth: this.dateOfBirth,
       createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      bio: this.bio,
+      location: this.location,
+      isActivated: this.isActivated,
     };
+  }
+
+  current() {
+    return {
+      id: this.id,
+      email: this.email,
+      password: this.password,
+      name: this.name,
+      avatarUrl: this.avatarUrl,
+      dateOfBirth: this.dateOfBirth,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      bio: this.bio,
+      location: this.location,
+      followers: this.followers,
+      following: this.following,
+      isActivated: this.isActivated,
+    }
   }
 
   userData() {
