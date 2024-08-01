@@ -1,5 +1,5 @@
-import { api } from './api';
-import { Post } from '../types';
+import { Post } from '@/store/types';
+import { api } from '@/store/services';
 
 export const postsApi = api.injectEndpoints({
   endpoints: (build) => ({

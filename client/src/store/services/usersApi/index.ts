@@ -1,7 +1,6 @@
-import { api } from './api';
-import { User } from '../types';
+import { User, Token } from '@/store/types';
+import { api } from '@/store/services';
 
-type Token = { accessToken: string; refreshToken: string }
 
 export const usersApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -55,13 +54,6 @@ export const usersApi = api.injectEndpoints({
         body: userData,
       }),
     }),
-
-    refresh: build.query({
-      query: () => ({
-        url: '/refresh',
-        method: 'GET',
-      }),
-    }),
   }),
 });
 
@@ -74,9 +66,8 @@ export const {
   useLazyGetUserByIdQuery,
   useLogoutMutation,
   useUpdateUserMutation,
-  useLazyRefreshQuery,
 } = usersApi;
 
 export const {
-  endpoints: { login, logout, updateUser, getUserById, register, current, refresh },
+  endpoints: { login, logout, updateUser, getUserById, register, current },
 } = usersApi;

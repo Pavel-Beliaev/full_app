@@ -1,5 +1,5 @@
-import { api } from './api';
-import { Comments } from '../types';
+import { Comments } from '@/store/types';
+import { api } from '@/store/services';
 
 export const commentsApi = api.injectEndpoints({
   endpoints: (build) => ({

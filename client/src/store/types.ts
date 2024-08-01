@@ -49,3 +49,8 @@ export type Comments = {
   post: Post;
   createdAt: Date;
 };
+
+export type Token = {
+  accessToken: string;
+  refreshToken: string;
+}

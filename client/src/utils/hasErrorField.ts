@@ -1,10 +1,10 @@
-export const hasErrorField = (error: unknown): error is { data: { error: string } } => {
+export const hasErrorField = (error: unknown): error is { data: { errors: [], message: string, status: number }, status: number } => {
   return (
     typeof error === 'object' &&
     error !== null &&
     'data' in error &&
     typeof error.data === 'object' &&
     error.data !== null &&
-    'error' in error.data
+    'message' in error.data
   );
 };

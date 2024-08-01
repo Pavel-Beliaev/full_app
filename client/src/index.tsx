@@ -2,10 +2,11 @@ import { createRoot } from 'react-dom/client';
 import { NextUIProvider } from '@nextui-org/react';
 import '@/style.css';
 import { Provider } from 'react-redux';
-import { store } from '@/store/store';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout, ThemeProvider } from '@/components';
 import { Auth, CurrentPost, Followers, Following, Posts, UserProfile } from '@/pages';
+import { store } from '@/store/store';
+import { AuthGuard } from '@/features';
 
 const root = document.getElementById('root');
 
@@ -47,7 +48,9 @@ container.render(
   <Provider store={store}>
     <NextUIProvider>
       <ThemeProvider>
-        <RouterProvider router={router}/>
+        <AuthGuard>
+          <RouterProvider router={router} />
+        </AuthGuard>
       </ThemeProvider>
     </NextUIProvider>
   </Provider>,

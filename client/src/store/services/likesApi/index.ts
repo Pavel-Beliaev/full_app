@@ -1,5 +1,5 @@
-import { api } from './api';
-import { Likes } from '../types';
+import { Likes } from '@/store/types';
+import { api } from '@/store/services';
 
 export const likesApi = api.injectEndpoints({
   endpoints: (build) => ({

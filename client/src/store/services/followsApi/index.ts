@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from '@/store/services';
 
 export const followsApi = api.injectEndpoints({
   endpoints: (build) => ({
