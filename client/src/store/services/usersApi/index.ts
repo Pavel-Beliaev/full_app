@@ -26,7 +26,7 @@ export const usersApi = api.injectEndpoints({
       }),
     }),
 
-    current: build.query<User & Token, void>({
+    current: build.query<User & Token, number | void>({
       query: () => ({
         url: '/current',
         method: 'GET',

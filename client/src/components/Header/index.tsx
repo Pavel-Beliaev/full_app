@@ -1,11 +1,30 @@
 import React, { useContext } from 'react';
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
+import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
 import { ThemeContext } from '@/components';
 import { FaRegMoon } from 'react-icons/fa';
 import { LuSunMedium } from 'react-icons/lu';
+import { useSelector } from 'react-redux';
+import { clearState, selectIsAuthenticated } from '@/store/slices/userSlice';
+import { useAppDispatch } from '@/store/hooks';
+import { useNavigate } from 'react-router-dom';
+import { api, useLogoutMutation } from '@/store/services';
+import { CiLogout } from 'react-icons/ci';
 
 export const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const isAuth = useSelector(selectIsAuthenticated);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = () => {
+    dispatch(clearState());
+    dispatch(api.util.resetApiState());
+    logout();
+    localStorage.removeItem('token');
+    navigate('/auth');
+  };
+
   return (
     <Navbar>
       <NavbarBrand>
@@ -24,7 +43,18 @@ export const Header = () => {
           }
         </NavbarItem>
         <NavbarItem>
-
+          {
+            isAuth && (
+              <Button
+                color='default'
+                variant='flat'
+                className='gap-2'
+                onClick={handleLogout}
+              >
+                <CiLogout /> <span>Log out</span>
+              </Button>
+            )
+          }
         </NavbarItem>
       </NavbarContent>
     </Navbar>

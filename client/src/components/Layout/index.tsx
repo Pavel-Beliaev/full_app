@@ -14,6 +14,7 @@ export const Layout = () => {
     if (!isAuth) {
       navigate('/auth');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

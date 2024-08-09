@@ -1,13 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useCurrentQuery } from '@/store/services';
 import { Spinner } from '@nextui-org/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 type PropsType = {
-  children: JSX.Element;
+  children: ReactElement;
 }
 
 export const AuthGuard: FC<PropsType> = ({ children }) => {
-  const { isLoading } = useCurrentQuery();
+
+  const requestSkipHandler = () => {
+    if (localStorage.getItem('token')) {
+      return 1;
+    }
+    return null;
+  };
+
+  const { isLoading } = useCurrentQuery(requestSkipHandler() ?? skipToken);
+
 
   if (isLoading) {
     return (

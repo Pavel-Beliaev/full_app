@@ -3,9 +3,9 @@ import { MyButton } from '@/components';
 import { Link } from 'react-router-dom';
 
 type PropsType = {
-  children: ReactNode;
-  icon: JSX.Element
-  href: string;
+  children: ReactNode
+  icon: ReactNode
+  href: string
 }
 
 export const NavButton: FC<PropsType> = ({

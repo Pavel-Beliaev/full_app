@@ -12,6 +12,7 @@ export const likesApi = api.injectEndpoints({
         method: 'POST',
         body
       }),
+      invalidatesTags: ['Like'],
     }),
 
     unLikePost: build.mutation<
@@ -22,6 +23,7 @@ export const likesApi = api.injectEndpoints({
         url: `/likes/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Like'],
     }),
   }),
 });

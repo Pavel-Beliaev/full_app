@@ -3,7 +3,7 @@ import { Button } from '@nextui-org/react';
 
 type PropsType = {
   children: ReactNode
-  icon: JSX.Element
+  icon: ReactNode
   className: string
   type?: 'button' | 'submit' | 'reset'
   fullWidth?: boolean

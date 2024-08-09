@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { ErrorMessage, MyInput } from '@/components';
 import { Button, Link } from '@nextui-org/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { hasErrorField } from '@/utils/hasErrorField';
 import { useRegisterMutation } from '@/store/services';
 
@@ -12,6 +12,7 @@ type RegisterType = {
 }
 
 type PropsType = {
+  // eslint-disable-next-line no-unused-vars
   setSelected: (value: 'login' | 'sign-up') => void
 }
 
@@ -26,12 +27,12 @@ export const Register: FC<PropsType> = ({ setSelected }) => {
     },
   });
 
-  const [register, { isLoading }] = useRegisterMutation();
+  const [registration, { isLoading }] = useRegisterMutation();
   const [error, setError] = useState('');
 
-  const onSubmit = async (data: RegisterType) => {
+  const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
-      await register(data).unwrap();
+      await registration(data).unwrap();
       setSelected('login');
       if (error) {
         setError('');
@@ -63,7 +64,7 @@ export const Register: FC<PropsType> = ({ setSelected }) => {
         type='text'
         required='Fields must be filled'
         control={control} />
-      <ErrorMessage error={error}/>
+      <ErrorMessage error={error} />
       <p className='text-center text-small'>
         Already have an account?&nbsp;&nbsp;
         <Link

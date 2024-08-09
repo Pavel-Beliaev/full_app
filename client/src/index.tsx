@@ -7,6 +7,7 @@ import { Layout, ThemeProvider } from '@/components';
 import { Auth, CurrentPost, Followers, Following, Posts, UserProfile } from '@/pages';
 import { store } from '@/store/store';
 import { AuthGuard } from '@/features';
+import { StrictMode } from 'react';
 
 const root = document.getElementById('root');
 
@@ -45,13 +46,15 @@ const router = createBrowserRouter([
 
 const container = createRoot(root);
 container.render(
-  <Provider store={store}>
-    <NextUIProvider>
-      <ThemeProvider>
-        <AuthGuard>
-          <RouterProvider router={router} />
-        </AuthGuard>
-      </ThemeProvider>
-    </NextUIProvider>
-  </Provider>,
+  <StrictMode>
+    <Provider store={store}>
+      <NextUIProvider>
+        <ThemeProvider>
+          <AuthGuard>
+            <RouterProvider router={router} />
+          </AuthGuard>
+        </ThemeProvider>
+      </NextUIProvider>
+    </Provider>
+  </StrictMode>
 );

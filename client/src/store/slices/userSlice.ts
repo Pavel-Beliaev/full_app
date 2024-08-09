@@ -22,7 +22,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // logout: () => initialState,
+    clearState: () => initialState,
     resetUser: (state) => {
       state.user = null;
     },
@@ -37,17 +37,13 @@ export const userSlice = createSlice({
         state.current = action.payload;
         state.isAuthenticated = true;
       })
-      .addMatcher(usersApi.endpoints.logout.matchFulfilled, (state, action) => {
-        state.isAuthenticated = false;
-        // state = initialState
-      })
       .addMatcher(usersApi.endpoints.getUserById.matchFulfilled, (state, action) => {
         state.user = action.payload;
       });
   },
 });
 
-export const { resetUser } = userSlice.actions;
+export const { resetUser, clearState } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated;

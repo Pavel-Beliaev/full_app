@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { ErrorMessage, MyInput } from '@/components';
 import { Button, Link } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ type LoginType = {
 }
 
 type PropsType = {
+  // eslint-disable-next-line no-unused-vars
   setSelected: (value: 'login' | 'sign-up') => void
 }
 
@@ -29,7 +30,7 @@ export const Login: FC<PropsType> = ({ setSelected }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const onSubmit = async (data: LoginType) => {
+  const onSubmit: SubmitHandler<LoginType> = async (data) => {
     try {
       await login(data).unwrap();
       await triggerCurrentQuery().unwrap();

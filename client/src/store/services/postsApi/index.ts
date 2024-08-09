@@ -10,7 +10,7 @@ export const postsApi = api.injectEndpoints({
       query: (body) => ({
         url: '/posts',
         method: 'POST',
-        body
+        body,
       }),
     }),
 
@@ -22,6 +22,7 @@ export const postsApi = api.injectEndpoints({
         url: '/posts',
         method: 'GET',
       }),
+      providesTags: ['Post', 'Like'],
     }),
 
     getPostById: build.query<
@@ -42,6 +43,7 @@ export const postsApi = api.injectEndpoints({
         url: `/posts/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Post'],
     }),
   }),
 });

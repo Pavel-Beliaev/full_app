@@ -4,6 +4,7 @@ import { Login, Register } from '@/features';
 
 export const Auth = () => {
   const [selected, setSelected] = useState<'login' | 'sign-up'>('login');
+
   return (
     <div className='flex h-screen items-center justify-center'>
       <div className='flex flex-col'>
