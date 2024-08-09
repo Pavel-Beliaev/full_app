@@ -4,6 +4,7 @@ const PostModel = require('../models/post-model');
 const LikeModel = require('../models/like-model');
 const LikeDto = require('../dtos/like-dto');
 const sessionDelete = require('../sessions/delete-like-session');
+
 class LikeService {
   async likePost(userId, postId) {
     if (!postId) {
@@ -26,18 +27,14 @@ class LikeService {
     await user.save();
     post.likes.push(like);
     await post.save();
-    const likeData = new LikeDto(like);
-    return likeData;
+    return new LikeDto(like);
   }
 
-  async unLikePost(postId, userId) {
+  async unLikePost(userId, postId) {
     const like = await LikeModel.findOne({
       user: userId,
       post: postId,
-    });
-    if (!like) {
-      throw ApiError.NotFoundError('Like not found');
-    }
+    })
     const likeData = new LikeDto(like);
     return sessionDelete(likeData);
   }

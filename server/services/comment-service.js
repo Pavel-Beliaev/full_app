@@ -4,6 +4,7 @@ const PostModel = require('../models/post-model');
 const ApiError = require('../exceptions/api-error');
 const CommentDto = require('../dtos/comment-dto');
 const sessionDelete = require('../sessions/delete-comment-session');
+
 class CommentService {
   async createComment(postId, content, userId) {
     if (!content || !postId) {

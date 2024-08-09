@@ -18,12 +18,14 @@ class PostService {
     });
     user.posts.push(post);
     await user.save();
-    const postDto = new PostDto(post);
-    return { post: postDto };
+    return {
+      ...new PostDto(post),
+      author: new UserDto(user).authorData(),
+    };
   }
 
   async getAllPosts(userId) {
-    const posts = await PostModel.find({ author: userId })
+    const posts = await PostModel.find()
       .sort({
         createdAt: 'desc',
       })
@@ -31,21 +33,20 @@ class PostService {
       .populate({
         path: 'comments',
         populate: 'user',
-      });
-    if (posts.length === 0) {
-      throw ApiError.NotFoundError('Posts not found');
+      })
+      .populate('likes');
+    if (!posts) {
+      throw ApiError.NotFoundError('Post not found');
     }
-
-    const isPostWithLikeUser = posts.map((post) => ({
+    return posts.map((post) => ({
       ...new PostDto(post),
       author: new UserDto(post.author).authorData(),
       comments: post.comments.map((comment) => ({
         ...new CommentDto(comment),
         user: new UserDto(comment.user).authorData(),
       })),
-      // likeByUser: post.likes.some((like) => like.user.id === userId),
+      likeByUser: post.likes.some((like) => like.user.toString() === userId),
     }));
-    return { posts: isPostWithLikeUser };
   }
 
   async getPostById(postId, userId) {
@@ -56,16 +57,15 @@ class PostService {
     if (!post) {
       throw ApiError.NotFoundError('Post not found');
     }
-    const isPostWithLikeUser = {
+    return {
       ...new PostDto(post),
       author: new UserDto(post.author).authorData(),
       comments: post.comments.map((comment) => ({
         ...new CommentDto(comment),
         user: new UserDto(comment.user).authorData(),
       })),
-      // likeByUser: post.likes.some((like) => like.user.id === userId),
+      likeByUser: post.likes.some((like) => like.user.toString() === userId),
     };
-    return { post: isPostWithLikeUser };
   }
 
   async deletePost(postId, userId) {

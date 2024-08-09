@@ -95,7 +95,7 @@ class UserService {
   async current(userId) {
     const user = await UserModel.findById(userId);
     if (!user) {
-      throw ApiError.NotFoundError('User not found');
+      throw ApiError.NotFoundError('CardUser not found');
     }
     const userDto = new UserDto(user).current();
     return { ...userDto };
@@ -104,7 +104,7 @@ class UserService {
   async getUserById(paramId, userId) {
     const user = await UserModel.findById(paramId);
     if (!user) {
-      throw ApiError.NotFoundError('User not found');
+      throw ApiError.NotFoundError('CardUser not found');
     }
     const userDto = new UserDto(user);
     const isFollowing = await FollowModel.findOne({
