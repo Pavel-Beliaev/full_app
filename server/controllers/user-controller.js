@@ -123,6 +123,7 @@ class UserController {
 
   async reset(req, res, next) {
     try {
+      console.log(req.body);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation error', errors.array()));
@@ -140,7 +141,7 @@ class UserController {
       const hash = req.params.hash;
       const hashData = await UserService.checkToken(hash);
       return res.redirect(
-        `${process.env.CLIENT_URL}/change_password?hash=${hashData.hash}`,
+        `${process.env.CLIENT_URL}/auth?hash=${hashData.hash}&value=recovery`,
       );
     } catch (error) {
       next(error);

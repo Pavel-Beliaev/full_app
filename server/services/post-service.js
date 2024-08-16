@@ -50,10 +50,13 @@ class PostService {
   }
 
   async getPostById(postId, userId) {
-    const post = await PostModel.findById(postId).populate('author').populate({
-      path: 'comments',
-      populate: 'user',
-    });
+    const post = await PostModel.findById(postId)
+      .populate('author')
+      .populate({
+        path: 'comments',
+        populate: 'user',
+      })
+      .populate('likes');
     if (!post) {
       throw ApiError.NotFoundError('Post not found');
     }
