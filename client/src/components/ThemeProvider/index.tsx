@@ -1,18 +1,9 @@
-import React, { createContext, FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
+import { ThemeContext, ThemeContextType } from '@/context';
 
 type PropsType = {
   children: ReactNode;
 }
-
-type ThemeContextType = {
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
-}
-
-export const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
-  toggleTheme: () => null,
-});
 
 export const ThemeProvider: FC<PropsType> = ({ children }) => {
   const storedTheme = localStorage.getItem('theme');
@@ -26,7 +17,6 @@ export const ThemeProvider: FC<PropsType> = ({ children }) => {
       localStorage.setItem('theme', newTheme);
       return newTheme;
     });
-
   };
 
   return (

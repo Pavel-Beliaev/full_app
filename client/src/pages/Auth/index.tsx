@@ -1,31 +1,48 @@
-import React, { useState } from 'react';
-import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
-import { Login, Register } from '@/features';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Button, Tab, Tabs } from '@nextui-org/react';
+import { Login, Recovery, Register, Reset } from '@/features';
+import { CardMain } from '@/components';
+import { useSearchParams } from 'react-router-dom';
 
 export const Auth = () => {
-  const [selected, setSelected] = useState<'login' | 'sign-up'>('login');
+  const [selected, setSelected] = useState<'login' | 'sign-up' | 'recovery' | 'reset'>('login');
+  const [params, setParams] = useSearchParams();
 
   return (
-    <div className='flex h-screen items-center justify-center'>
-      <div className='flex flex-col'>
-        <Card className='h-[450px] w-[340px]'>
-          <CardBody className='overflow-hidden'>
-            <Tabs
-              fullWidth
-              size='md'
-              selectedKey={selected}
-              onSelectionChange={(key) => setSelected(key as typeof selected)}
-            >
-              <Tab key='login' title='Enter'>
-                <Login setSelected={setSelected} />
-              </Tab>
-              <Tab key='sign-up' title='Registration'>
-                <Register setSelected={setSelected} />
-              </Tab>
-            </Tabs>
-          </CardBody>
-        </Card>
-      </div>
-    </div>
+    <CardMain setSelected={setSelected}>
+      <Tabs
+        fullWidth
+        size='md'
+        selectedKey={selected}
+        onSelectionChange={(key) => setSelected(key as typeof selected)}
+      >
+        <Tab key='login' title='Enter'>
+          <Login setSelected={setSelected} />
+        </Tab>
+        <Tab key='sign-up' title='Registration'>
+          <Register setSelected={setSelected} />
+        </Tab>
+        {selected === 'reset' &&
+          <Tab key='reset' title='Reset'>
+            <Reset setSelected={setSelected} />
+          </Tab>
+        }
+        {selected === 'recovery' &&
+          <Tab key='recovery' title='Recovery'>
+            <Recovery />
+          </Tab>
+        }
+      </Tabs>
+      {selected === 'login' && (
+        <Button
+          fullWidth
+          color='default'
+          type='button'
+          onClick={() => setSelected('reset')}
+        >
+          Forgot password?
+        </Button>
+      )}
+    </CardMain>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
-import { ThemeContext } from '@/components';
 import { FaRegMoon } from 'react-icons/fa';
 import { LuSunMedium } from 'react-icons/lu';
 import { useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { api, useLogoutMutation } from '@/store/services';
 import { CiLogout } from 'react-icons/ci';
+import { ThemeContext } from '@/context';
 
 export const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);

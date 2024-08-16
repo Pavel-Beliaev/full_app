@@ -22,7 +22,7 @@ export const postsApi = api.injectEndpoints({
         url: '/posts',
         method: 'GET',
       }),
-      providesTags: ['Post', 'Like'],
+      providesTags: ['Post', 'Like', 'Comment'],
     }),
 
     getPostById: build.query<
@@ -33,6 +33,7 @@ export const postsApi = api.injectEndpoints({
         url: `/posts/${id}`,
         method: 'GET',
       }),
+      providesTags: ['Like', 'Comment'],
     }),
 
     deletePost: build.mutation<

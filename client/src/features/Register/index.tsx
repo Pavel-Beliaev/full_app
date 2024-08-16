@@ -13,19 +13,20 @@ type RegisterType = {
 
 type PropsType = {
   // eslint-disable-next-line no-unused-vars
-  setSelected: (value: 'login' | 'sign-up') => void
+  setSelected: (value: 'login' | 'sign-up' | 'recovery' | 'reset') => void
 }
 
 export const Register: FC<PropsType> = ({ setSelected }) => {
-  const { handleSubmit, control } = useForm<RegisterType>({
-    mode: 'onChange',
-    reValidateMode: 'onBlur',
-    defaultValues: {
-      email: '',
-      password: '',
-      name: '',
-    },
-  });
+  const { handleSubmit, control } =
+    useForm<RegisterType>({
+      mode: 'onChange',
+      reValidateMode: 'onBlur',
+      defaultValues: {
+        email: '',
+        password: '',
+        name: '',
+      },
+    });
 
   const [registration, { isLoading }] = useRegisterMutation();
   const [error, setError] = useState('');

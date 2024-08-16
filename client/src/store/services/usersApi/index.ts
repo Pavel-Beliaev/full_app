@@ -54,6 +54,21 @@ export const usersApi = api.injectEndpoints({
         body: userData,
       }),
     }),
+
+    resetPassword: build.mutation<void, { email: string }>({
+      query: (email) => ({
+        url: `/reset`,
+        method: 'POST',
+        body: email,
+      }),
+    }),
+    recoveryPassword: build.mutation<void, { hash: string, password: string }>({
+      query: (data) => ({
+        url: `/change_password`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -66,8 +81,10 @@ export const {
   useLazyGetUserByIdQuery,
   useLogoutMutation,
   useUpdateUserMutation,
+  useResetPasswordMutation,
+  useRecoveryPasswordMutation,
 } = usersApi;
 
 export const {
-  endpoints: { login, logout, updateUser, getUserById, register, current },
+  endpoints: { login, logout, updateUser, getUserById, register, current, resetPassword, recoveryPassword },
 } = usersApi;

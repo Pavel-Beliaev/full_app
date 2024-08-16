@@ -5,13 +5,14 @@ export const commentsApi = api.injectEndpoints({
   endpoints: (build) => ({
     createComment: build.mutation<
       Comments,
-      Partial<Comments>
+      {content: string, postId: string}
     >({
       query: (body) => ({
         url: '/comments',
         method: 'POST',
         body
       }),
+      invalidatesTags: ['Comment'],
     }),
 
     deleteComment: build.mutation<
@@ -22,6 +23,7 @@ export const commentsApi = api.injectEndpoints({
         url: `/comments/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Comment'],
     }),
   }),
 });

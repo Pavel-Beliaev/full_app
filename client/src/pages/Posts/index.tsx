@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreatePost, Post } from '@/components';
+import { CreateForm, Post } from '@/components';
 import { useGetAllPostsQuery } from '@/store/services';
 
 export const Posts = () => {
@@ -9,7 +9,7 @@ export const Posts = () => {
   return (
     <>
       <div className='mb-10 w-full'>
-        <CreatePost />
+        <CreateForm type='post' />
       </div>
       {data && data.length > 0
         ? data.map(({
