@@ -9,6 +9,7 @@ const jdenticon = require('jdenticon');
 const path = require('path');
 const fs = require('fs');
 const UserDto = require('../dtos/user-dto');
+const FollowDto = require('../dtos/follows-dto');
 const crypto = require('crypto');
 
 const PORT = process.env.PORT || '5000';
@@ -93,12 +94,33 @@ class UserService {
   }
 
   async current(userId) {
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(userId)
+      .populate({
+        path: 'followers',
+        populate: 'follower',
+      })
+      .populate({
+        path: 'following',
+        populate: 'following',
+      });
     if (!user) {
       throw ApiError.NotFoundError('CardUser not found');
     }
-    const userDto = new UserDto(user).current();
-    return { ...userDto };
+    return {
+      ...new UserDto(user).current(),
+      followers: user.followers.map((follower) => ({
+        ...new FollowDto(follower),
+        follower: {
+          ...new UserDto(follower.follower).follow()
+        }
+      })),
+      following: user.following.map((follow) => ({
+        ...new FollowDto(follow),
+        following: {
+          ...new UserDto(follow.following).follow()
+        }
+      })),
+    };
   }
 
   async getUserById(paramId, userId) {
@@ -129,7 +151,7 @@ class UserService {
         dateOfBirth: dateOfBirth || undefined,
         bio: bio || undefined,
         location: location || undefined,
-        filePath: filePath ? `/${filePath}` : undefined,
+        avatarUrl: filePath ? `/${filePath}` : undefined,
       },
       { new: true },
     );

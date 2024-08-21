@@ -104,7 +104,7 @@ class UserController {
       }
       let filePath;
       if (req.file && req.file.path) {
-        filePath = req.file.path;
+        filePath = req.file.path.replace(/\\/g, '/');
       }
       const userData = await UserService.updateUser(
         id,
@@ -123,7 +123,6 @@ class UserController {
 
   async reset(req, res, next) {
     try {
-      console.log(req.body);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation error', errors.array()));

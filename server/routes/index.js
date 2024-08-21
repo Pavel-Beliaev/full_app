@@ -19,9 +19,7 @@ const storage = multer.diskStorage({
     next(null, file.originalname);
   },
 });
-
 const uploads = multer({ storage });
-
 //роуты пользователя
 router.post(
   '/register',
@@ -49,6 +47,7 @@ router.get('/users/:id', authMiddleware, UserController.getUserById);
 router.put(
   '/edit/user/:id',
   authMiddleware,
+  uploads.single('avatar'),
   body('email').isEmail(),
   UserController.updateUser,
 );

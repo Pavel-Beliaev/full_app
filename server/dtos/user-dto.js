@@ -91,4 +91,13 @@ module.exports = class UserDto {
       avatarUrl: this.avatarUrl,
     };
   }
+
+  follow() {
+    return {
+      id: this.id,
+      name: this.name,
+      avatarUrl: this.avatarUrl,
+      email: this.email,
+    }
+  }
 };

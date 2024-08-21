@@ -4,6 +4,7 @@ const UserModel = require('../models/user-model');
 const UserDto = require('../dtos/user-dto');
 const PostDto = require('../dtos/post-dto');
 const CommentDto = require('../dtos/comment-dto');
+const LikeDto = require('../dtos/like-dto');
 const sessionDelete = require('../sessions/delete-post-session');
 
 class PostService {
@@ -40,6 +41,9 @@ class PostService {
     }
     return posts.map((post) => ({
       ...new PostDto(post),
+      likes: post.likes.map((like) => ({
+        ...new LikeDto(like),
+      })),
       author: new UserDto(post.author).authorData(),
       comments: post.comments.map((comment) => ({
         ...new CommentDto(comment),
@@ -62,6 +66,9 @@ class PostService {
     }
     return {
       ...new PostDto(post),
+      likes: post.likes.map((like) => ({
+        ...new LikeDto(like),
+      })),
       author: new UserDto(post.author).authorData(),
       comments: post.comments.map((comment) => ({
         ...new CommentDto(comment),
