@@ -8,7 +8,7 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
-export function buildPlugins({ mode, paths, platform }: BuildOptions): Configuration['plugins'] {
+export function buildPlugins({ mode, paths, analyze }: BuildOptions): Configuration['plugins'] {
   const isDev = mode === 'development';
   const isProd = mode === 'production';
 
@@ -38,7 +38,10 @@ export function buildPlugins({ mode, paths, platform }: BuildOptions): Configura
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css',
     }));
-    // plugins.push(new BundleAnalyzerPlugin());
+  }
+
+  if (analyze) {
+    plugins.push(new BundleAnalyzerPlugin());
   }
 
   return plugins;

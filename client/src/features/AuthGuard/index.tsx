@@ -8,16 +8,7 @@ type PropsType = {
 }
 
 export const AuthGuard: FC<PropsType> = ({ children }) => {
-
-  const requestSkipHandler = () => {
-    if (localStorage.getItem('token')) {
-      return 1;
-    }
-    return null;
-  };
-
-  const { isLoading } = useCurrentQuery(requestSkipHandler() ?? skipToken);
-
+  const { isLoading } = useCurrentQuery();
 
   if (isLoading) {
     return (

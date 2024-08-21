@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '@/store/types';
+import { NewUserType, User } from '@/store/types';
 import { usersApi } from '@/store/services';
 import { RootState } from '@/store/store';
+import { followAdapter } from '@/store/adapter/followAdapter';
 
 interface IUserSlice {
   user: User | null;
   isAuthenticated: boolean;
   users: User[] | null;
-  current: User | null;
+  current: NewUserType | null;
   token?: string;
 }
 
@@ -34,7 +35,7 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addMatcher(usersApi.endpoints.current.matchFulfilled, (state, action) => {
-        state.current = action.payload;
+        state.current = followAdapter(action.payload)
         state.isAuthenticated = true;
       })
       .addMatcher(usersApi.endpoints.getUserById.matchFulfilled, (state, action) => {

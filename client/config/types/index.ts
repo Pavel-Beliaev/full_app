@@ -4,7 +4,7 @@ export interface BuildPaths {
   template: string,
   src: string,
   config: string,
-  public: string
+  public: string,
 }
 
 export type BuildMode = 'development' | 'production';
@@ -14,6 +14,6 @@ export interface BuildOptions {
   port: number,
   paths: BuildPaths,
   mode: BuildMode,
-  platform: BuildPlatform;
-
+  platform: BuildPlatform,
+  analyze?: boolean,
 }

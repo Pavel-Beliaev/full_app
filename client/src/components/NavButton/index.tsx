@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@nextui-org/react';
 
 type PropsType = {
@@ -23,8 +23,9 @@ export const NavButton: FC<PropsType> = ({
                                            href,
                                            type,
                                            fullWidth,
-                                           color
+                                           color,
                                          }) => {
+  const navigate = useNavigate();
   return (
     <Button
       startContent={icon}
@@ -34,10 +35,9 @@ export const NavButton: FC<PropsType> = ({
       className='flex justify-start text-xl'
       type={type}
       fullWidth={fullWidth}
+      onClick={() => navigate(href)}
     >
-      <Link to={href}>
-        {children}
-      </Link>
+      {children}
     </Button>
   );
 };

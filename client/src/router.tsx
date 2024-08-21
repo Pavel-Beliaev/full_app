@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Auth, CurrentPost, Followers, Following, Posts, UserProfile } from '@/pages';
+import { LazyFollowers, LazyFollowing, LazyAuth, LazyCurrentPost, LazyPosts, LazyUserProfile } from '@/pages';
 import { Layout } from '@/components';
+import { Suspense } from 'react';
+import { Spinner } from '@nextui-org/react';
 
 export const router = createBrowserRouter([
   {
     path: '/auth',
-    element: <Auth />,
+    element: <Suspense fallback={<Spinner />}><LazyAuth /></Suspense>,
   },
   {
     path: '/',
@@ -13,23 +15,23 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Posts />,
+        element: <Suspense fallback={<Spinner />}><LazyPosts /></Suspense>,
       },
       {
         path: 'posts/:id',
-        element: <CurrentPost />,
+        element: <Suspense fallback={<Spinner />}><LazyCurrentPost /></Suspense>,
       },
       {
         path: 'users/:id',
-        element: <UserProfile />,
+        element: <Suspense fallback={<Spinner />}><LazyUserProfile /></Suspense>,
       },
       {
         path: 'followers',
-        element: <Followers />,
+        element: <Suspense fallback={<Spinner />}><LazyFollowers /></Suspense>,
       },
       {
         path: 'following',
-        element: <Following />,
+        element: <Suspense fallback={<Spinner />}><LazyFollowing /></Suspense>,
       },
     ],
   },

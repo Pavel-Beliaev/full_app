@@ -6,6 +6,7 @@ import { BuildMode, BuildPaths, BuildPlatform } from './config/types';
 interface EnvVariables {
   mode?: BuildMode;
   port?: number;
+  analyze?: boolean,
   platform?: BuildPlatform;
 }
 
@@ -24,5 +25,6 @@ export default (env: EnvVariables): webpack.Configuration => {
     mode: env.mode ?? 'development',
     paths,
     platform: env.platform ?? 'desktop',
+    analyze: env.analyze,
   });
 };

@@ -1,6 +1,8 @@
-export * from './Auth'
-export * from './CurrentPost'
-export * from './Followers'
-export * from './Following'
-export * from './Posts'
-export * from './UserProfile'
+import { lazy } from 'react';
+
+export const LazyAuth = lazy(() => import('./Auth'));
+export const LazyCurrentPost = lazy(() => import('./CurrentPost'));
+export const LazyFollowers = lazy(() => import('./Followers'));
+export const LazyFollowing = lazy(() => import('./Following'));
+export const LazyPosts = lazy(() => import('./Posts'));
+export const LazyUserProfile = lazy(() => import('./UserProfile'));

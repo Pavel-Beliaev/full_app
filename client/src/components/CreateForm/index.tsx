@@ -14,6 +14,7 @@ type PropsType = {
 }
 
 type FormType<T extends PropsType['type']> = {
+  // eslint-disable-next-line no-unused-vars
   [key in T as string]: string
 }
 
@@ -23,7 +24,7 @@ export const CreateForm: FC<PropsType> = ({ type }) => {
   const [getPostById] = useLazyGetPostByIdQuery();
   const [createPost] = useCreatePostMutation();
   const [triggerAllPosts] = useLazyGetAllPostsQuery();
-  const isPost = type === 'post'
+  const isPost = type === 'post';
 
   const {
     handleSubmit,
@@ -49,7 +50,7 @@ export const CreateForm: FC<PropsType> = ({ type }) => {
         await triggerAllPosts().unwrap();
       }
     } catch (error) {
-      console.log(error);
+      throw new Error('Invalid form');
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useLayoutEffect } from 'react';
+import React, { FC, memo, useLayoutEffect } from 'react';
 import { Card, CardBody } from '@nextui-org/react';
 import { useSearchParams } from 'react-router-dom';
 

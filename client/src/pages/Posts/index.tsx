@@ -2,9 +2,8 @@ import React from 'react';
 import { CreateForm, Post } from '@/components';
 import { useGetAllPostsQuery } from '@/store/services';
 
-export const Posts = () => {
+const Posts = () => {
   const { data } = useGetAllPostsQuery();
-
 
   return (
     <>
@@ -40,3 +39,5 @@ export const Posts = () => {
     </>
   );
 };
+
+export default Posts;

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useGetPostByIdQuery } from '@/store/services';
 import { BackButton, Comments, CreateForm, Post } from '@/components';
 
-export const CurrentPost = () => {
+const CurrentPost = () => {
   const params = useParams<{ id: string }>();
   const { data } = useGetPostByIdQuery(params.id);
 
@@ -37,14 +37,16 @@ export const CurrentPost = () => {
         likedByUser={likeByUser}
       />
       <div className='mt-10'>
-        <CreateForm type='comment'/>
+        <CreateForm type='comment' />
       </div>
       <div className='mt-10'>
         {data.comments
-          ? <Comments data={data}/>
+          ? <Comments data={data} />
           : null
         }
       </div>
     </>
   );
 };
+
+export default CurrentPost;

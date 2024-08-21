@@ -1,12 +1,10 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Tab, Tabs } from '@nextui-org/react';
 import { Login, Recovery, Register, Reset } from '@/features';
 import { CardMain } from '@/components';
-import { useSearchParams } from 'react-router-dom';
 
-export const Auth = () => {
+const Auth = () => {
   const [selected, setSelected] = useState<'login' | 'sign-up' | 'recovery' | 'reset'>('login');
-  const [params, setParams] = useSearchParams();
 
   return (
     <CardMain setSelected={setSelected}>
@@ -46,3 +44,5 @@ export const Auth = () => {
     </CardMain>
   );
 };
+
+export default Auth;

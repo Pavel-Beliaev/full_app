@@ -11,6 +11,7 @@ export const followsApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Follow'],
     }),
 
     unFollowUser: build.mutation<
@@ -21,6 +22,7 @@ export const followsApi = api.injectEndpoints({
         url: `/follow/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Follow'],
     }),
   }),
 });

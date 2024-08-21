@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { Button, Textarea } from '@nextui-org/react';
 import { ErrorMessage } from '@/components';
 import { IoMdCreate } from 'react-icons/io';

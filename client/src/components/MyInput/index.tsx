@@ -10,6 +10,7 @@ type PropsType = {
   control: Control<any>
   required?: string
   endContent?: JSX.Element
+  disabled?: boolean
 }
 
 export const MyInput: FC<PropsType> = ({
@@ -20,6 +21,7 @@ export const MyInput: FC<PropsType> = ({
                                          control,
                                          required = '',
                                          endContent,
+                                         disabled = false
                                        }) => {
   const {
     field,
@@ -34,6 +36,7 @@ export const MyInput: FC<PropsType> = ({
   });
   return (
     <Input
+      disabled={disabled}
       id={name}
       label={label}
       type={type}

@@ -31,6 +31,7 @@ export const usersApi = api.injectEndpoints({
         url: '/current',
         method: 'GET',
       }),
+      providesTags: ['Follow', 'Edit'],
     }),
 
     getUserById: build.query<User, string>({
@@ -38,6 +39,7 @@ export const usersApi = api.injectEndpoints({
         url: `/users/${id}`,
         method: 'GET',
       }),
+      providesTags: ['Follow', 'Edit'],
     }),
 
     logout: build.mutation<void, void>({
@@ -53,6 +55,7 @@ export const usersApi = api.injectEndpoints({
         method: 'PUT',
         body: userData,
       }),
+      invalidatesTags: ['Edit'],
     }),
 
     resetPassword: build.mutation<void, { email: string }>({
@@ -62,6 +65,7 @@ export const usersApi = api.injectEndpoints({
         body: email,
       }),
     }),
+
     recoveryPassword: build.mutation<void, { hash: string, password: string }>({
       query: (data) => ({
         url: `/change_password`,

@@ -9,8 +9,6 @@ import { selectCurrent } from '@/store/slices/userSlice';
 import {
   useDeleteCommentMutation,
   useDeletePostMutation,
-  useLazyGetAllPostsQuery,
-  useLazyGetPostByIdQuery,
 } from '@/store/services';
 import { hasErrorField } from '@/utils/hasErrorField';
 
@@ -37,8 +35,6 @@ export const PostHeader: FC<PropsType> = memo(({
   const currentUser = useSelector(selectCurrent);
   const [deletePost, deletePostStatus] = useDeletePostMutation();
   const [deleteComment, deleteCommentStatus] = useDeleteCommentMutation();
-  const [triggerGetAllPost] = useLazyGetAllPostsQuery();
-  const [triggerGetPostById] = useLazyGetPostByIdQuery();
   const navigate = useNavigate();
 
   const handleDelete = async () => {
@@ -55,7 +51,7 @@ export const PostHeader: FC<PropsType> = memo(({
           await deleteComment(id).unwrap();
           break;
         default:
-          throw new Error('Invalid argument at "cardFor"');
+          new Error('Invalid argument at "cardFor"');
       }
     } catch (error) {
       if (hasErrorField(error)) {

@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ErrorMessage, MyInput } from '@/components';
-import { Button, Link } from '@nextui-org/react';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@nextui-org/react';
 import { hasErrorField } from '@/utils/hasErrorField';
-import { useLazyCurrentQuery, useLoginMutation, useResetPasswordMutation } from '@/store/services';
+import { useResetPasswordMutation } from '@/store/services';
 
 type ResetType = {
   email: string

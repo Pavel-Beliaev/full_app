@@ -15,6 +15,7 @@ export type User = {
   followers: Follows[];
   following: Follows[];
   isActivated?: boolean;
+  isFollowing?: boolean;
   activationLink?: string;
   hash?: string;
   hashExp?: Date;
@@ -53,4 +54,16 @@ export type Comments = {
 export type Token = {
   accessToken: string;
   refreshToken: string;
+}
+
+export type Follow = {
+  id: string
+  name: string
+  avatarUrl: string
+  email: string
+}
+
+export type NewUserType = Omit<User, 'followers' | 'following'> & {
+  followers: Follow[]
+  following: Follow[]
 }
