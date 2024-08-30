@@ -18,11 +18,12 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 });
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 });
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: {} & RetryOptions) => {
   let result = await baseQueryWithRetry(args, api, extraOptions);
+  const token = localStorage.getItem('token')
 
-  if (result.error && result.error.status === 401) {
+  if (result.error && result.error.status === 401 && token) {
     const refreshResult = await baseQuery(
       {
         url: '/refresh',

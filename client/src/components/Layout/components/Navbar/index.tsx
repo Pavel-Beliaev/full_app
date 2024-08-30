@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavButton } from '@/components';
 import { BsPostcard } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { FaUsers } from 'react-icons/fa';
+import { NavButton } from '@/components/Layout/components';
 
 export const Navbar = () => {
   return (

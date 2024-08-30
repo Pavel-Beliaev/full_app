@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetPostByIdQuery } from '@/store/services';
-import { BackButton, Comments, CreateForm, Post } from '@/components';
+import { BackButton, CreateForm, Post } from '@/components';
+import { Comments } from '@/module/CurrentPost/components';
 
 const CurrentPost = () => {
   const params = useParams<{ id: string }>();

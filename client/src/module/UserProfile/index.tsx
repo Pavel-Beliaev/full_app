@@ -9,13 +9,14 @@ import {
   useUnFollowUserMutation,
 } from '@/store/services';
 import { useAppDispatch } from '@/store/hooks';
-import { BackButton, CountInfo, EditProfile, ErrorMessage, ProfileInfo } from '@/components';
 import { BASE_URL } from '@/constants';
 import { MdOutlinePersonAddAlt, MdOutlinePersonAddDisabled } from 'react-icons/md';
 import { CiEdit } from 'react-icons/ci';
 import { formatToClientDate } from '@/utils/formatToClientDate';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { hasErrorField } from '@/utils/hasErrorField';
+import { BackButton, ErrorMessage } from '@/components';
+import { CountInfo, EditProfile, ProfileInfo } from '@/module/UserProfile/components';
 
 const UserProfile = () => {
   const { id } = useParams<{ id: string }>();

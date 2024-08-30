@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import { MetaInfo } from '@/components';
 import { FcDislike } from 'react-icons/fc';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { FaRegComment } from 'react-icons/fa';
 import { CardFooter } from '@nextui-org/react';
 import { hasErrorField } from '@/utils/hasErrorField';
 import { useLikePostMutation, useUnLikePostMutation } from '@/store/services';
+import { MetaInfo } from '@/components/Post/components';
 
 type PropsType = {
   likesCount: number

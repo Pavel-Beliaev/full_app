@@ -82,7 +82,6 @@ export const {
   useCurrentQuery,
   useLazyCurrentQuery,
   useGetUserByIdQuery,
-  useLazyGetUserByIdQuery,
   useLogoutMutation,
   useUpdateUserMutation,
   useResetPasswordMutation,

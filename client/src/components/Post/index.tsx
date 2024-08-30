@@ -1,9 +1,7 @@
 import React, { FC, memo, useState } from 'react';
 import { Card } from '@nextui-org/react';
 import { ErrorMessage } from '@/components';
-import { PostBody } from './PostBody';
-import { PostFooter } from './PostFooter';
-import { PostHeader } from './PostHeader';
+import { PostBody, PostFooter, PostHeader } from '@/components/Post/components';
 
 type PropsType = {
   avatarUrl: string

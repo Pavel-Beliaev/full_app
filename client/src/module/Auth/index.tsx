@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Tab, Tabs } from '@nextui-org/react';
 import { Login, Recovery, Register, Reset } from '@/features';
-import { CardMain } from '@/components';
+import { CardMain } from '@/module/Auth/components';
 
 const Auth = () => {
   const [selected, setSelected] = useState<'login' | 'sign-up' | 'recovery' | 'reset'>('login');

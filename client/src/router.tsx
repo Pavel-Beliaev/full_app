@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { LazyFollowers, LazyFollowing, LazyAuth, LazyCurrentPost, LazyPosts, LazyUserProfile } from '@/pages';
-import { Layout } from '@/components';
 import { Suspense } from 'react';
 import { Spinner } from '@nextui-org/react';
+import { LazyAuth, LazyCurrentPost, LazyFollowers, LazyFollowing, LazyPosts, LazyUserProfile } from '@/module';
+import { Layout } from '@/components';
 
 export const router = createBrowserRouter([
   {

@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 import { CardBody } from '@nextui-org/react';
-import { Typography } from '@/components';
+import { Typography } from '@/components/Post/components';
 
 type PropsType = {
   content: string

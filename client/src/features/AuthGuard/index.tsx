@@ -1,7 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { useCurrentQuery } from '@/store/services';
 import { Spinner } from '@nextui-org/react';
-import { skipToken } from '@reduxjs/toolkit/query';
 
 type PropsType = {
   children: ReactElement;
