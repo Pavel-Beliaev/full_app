@@ -1,28 +1,28 @@
-import React, { FC } from 'react';
-import { Control, useController } from 'react-hook-form';
+import React, { ReactNode } from 'react';
+import { Control, FieldValues, useController, Path } from 'react-hook-form';
 import { Input } from '@nextui-org/react';
 
-type PropsType = {
-  name: string
+type PropsType<T extends FieldValues> = {
+  name: Path<T>
   label: string
   placeholder?: string
   type?: string
-  control: Control<any>
+  control: Control<T>
   required?: string
-  endContent?: JSX.Element
+  endContent?: ReactNode
   disabled?: boolean
 }
 
-export const MyInput: FC<PropsType> = ({
-                                         name,
-                                         label,
-                                         placeholder,
-                                         type,
-                                         control,
-                                         required = '',
-                                         endContent,
-                                         disabled = false
-                                       }) => {
+export const MyInput = <T extends FieldValues>({
+                                                 name,
+                                                 label,
+                                                 placeholder,
+                                                 type,
+                                                 control,
+                                                 required = '',
+                                                 disabled = false,
+                                                 endContent,
+                                               }: PropsType<T>) => {
   const {
     field,
     fieldState: { invalid },
@@ -47,6 +47,7 @@ export const MyInput: FC<PropsType> = ({
       onChange={field.onChange}
       onBlur={field.onBlur}
       errorMessage={`${errors[name]?.message ?? ''}`}
+      endContent={endContent}
     />
   );
 };

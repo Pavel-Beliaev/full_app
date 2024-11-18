@@ -32,7 +32,3 @@ export const {
   useCreateCommentMutation,
   useDeleteCommentMutation,
 } = commentsApi;
-
-export const {
-  endpoints: { createComment, deleteComment },
-} = commentsApi;

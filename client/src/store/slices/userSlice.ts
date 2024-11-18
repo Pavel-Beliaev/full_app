@@ -10,6 +10,7 @@ interface IUserSlice {
   users: User[] | null;
   current: NewUserType | null;
   token?: string;
+  isAble: boolean;
 }
 
 const initialState: IUserSlice = {
@@ -17,6 +18,7 @@ const initialState: IUserSlice = {
   isAuthenticated: false,
   users: null,
   current: null,
+  isAble: false,
 };
 
 export const userSlice = createSlice({
@@ -27,6 +29,9 @@ export const userSlice = createSlice({
     resetUser: (state) => {
       state.user = null;
     },
+    disabler: (state) => {
+      state.isAble = !state.isAble;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -35,7 +40,7 @@ export const userSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addMatcher(usersApi.endpoints.current.matchFulfilled, (state, action) => {
-        state.current = followAdapter(action.payload)
+        state.current = followAdapter(action.payload);
         state.isAuthenticated = true;
       })
       .addMatcher(usersApi.endpoints.getUserById.matchFulfilled, (state, action) => {
@@ -44,9 +49,10 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUser, clearState } = userSlice.actions;
+export const { resetUser, clearState, disabler } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated;
 export const selectCurrent = (state: RootState) => state.user.current;
 export const selectUser = (state: RootState) => state.user.user;
+export const selectAble = (state: RootState) => state.user.isAble;

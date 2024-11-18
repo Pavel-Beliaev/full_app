@@ -1,15 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { selectCurrent } from '@/store/slices/userSlice';
 import { Link } from 'react-router-dom';
 import { Card, CardBody } from '@nextui-org/react';
 import { CardUser } from '@/components';
+import { useAppSelector } from '@/store/hooks';
 
 const Followers = () => {
-  const currentUser = useSelector(selectCurrent);
+  const currentUser = useAppSelector(selectCurrent);
 
   if (currentUser.followers.length === 0) {
-    return <h1>No one is following you</h1>
+    return <h1>No one is following you</h1>;
   } else if (currentUser.followers.length > 0) {
     return (
       <div className='flex flex-col gap-5'>

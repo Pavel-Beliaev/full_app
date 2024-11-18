@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
-import { FaRegMoon } from 'react-icons/fa';
+import { FaGlobeAsia, FaRegMoon } from 'react-icons/fa';
 import { LuSunMedium } from 'react-icons/lu';
-import { useSelector } from 'react-redux';
 import { clearState, selectIsAuthenticated } from '@/store/slices/userSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { api, useLogoutMutation } from '@/store/services';
 import { CiLogout } from 'react-icons/ci';
@@ -12,7 +11,7 @@ import { ThemeContext } from '@/context';
 
 export const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const isAuth = useSelector(selectIsAuthenticated);
+  const isAuth = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
@@ -27,7 +26,8 @@ export const Header = () => {
 
   return (
     <Navbar>
-      <NavbarBrand>
+      <NavbarBrand className='gap-3'>
+        <FaGlobeAsia className='w-7 h-7'/>
         <p className='font-bold text-inherit'>
           Network Social
         </p>

@@ -1,4 +1,4 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { api } from '@/store/services';
 import user from '@/store/slices/userSlice';
 import { listenerMiddleware } from '@/store/middleware/auth';
@@ -16,9 +16,3 @@ export type AppStore = typeof store;
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = AppStore['dispatch'];
-export type AppThunk<ThunkReturnType = void> = ThunkAction<
-  ThunkReturnType,
-  RootState,
-  unknown,
-  Action
->;

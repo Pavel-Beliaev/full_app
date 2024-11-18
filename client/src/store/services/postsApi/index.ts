@@ -57,7 +57,3 @@ export const {
   useLazyGetAllPostsQuery,
   useLazyGetPostByIdQuery,
 } = postsApi;
-
-export const {
-  endpoints: { createPost, getAllPosts, getPostById, deletePost },
-} = postsApi;

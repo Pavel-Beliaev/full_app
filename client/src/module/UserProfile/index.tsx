@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Card, Image, useDisclosure } from '@nextui-org/react';
-import { useSelector } from 'react-redux';
-import { resetUser, selectCurrent } from '@/store/slices/userSlice';
+import { disabler, resetUser, selectCurrent } from '@/store/slices/userSlice';
 import {
   useFollowUserMutation,
   useGetUserByIdQuery,
   useUnFollowUserMutation,
 } from '@/store/services';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { BASE_URL } from '@/constants';
 import { MdOutlinePersonAddAlt, MdOutlinePersonAddDisabled } from 'react-icons/md';
 import { CiEdit } from 'react-icons/ci';
@@ -21,7 +20,7 @@ import { CountInfo, EditProfile, ProfileInfo } from '@/module/UserProfile/compon
 const UserProfile = () => {
   const { id } = useParams<{ id: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const currentUser = useSelector(selectCurrent);
+  const currentUser = useAppSelector(selectCurrent);
   const { data } = useGetUserByIdQuery(id ?? skipToken);
   const [followUser] = useFollowUserMutation();
   const [unfollowUser] = useUnFollowUserMutation();
@@ -29,8 +28,10 @@ const UserProfile = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(disabler());
     return () => {
       dispatch(resetUser());
+      dispatch(disabler());
     };
   }, []);
 

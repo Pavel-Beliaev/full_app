@@ -31,7 +31,3 @@ export const {
   useFollowUserMutation,
   useUnFollowUserMutation,
 } = followsApi;
-
-export const {
-  endpoints: { followUser, unFollowUser },
-} = followsApi;

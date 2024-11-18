@@ -25,7 +25,9 @@ export const NavButton: FC<PropsType> = ({
                                            fullWidth,
                                            color,
                                          }) => {
+
   const navigate = useNavigate();
+
   return (
     <Button
       startContent={icon}

@@ -32,7 +32,3 @@ export const {
   useLikePostMutation,
   useUnLikePostMutation,
 } = likesApi;
-
-export const {
-  endpoints: { likePost, unLikePost },
-} = likesApi;

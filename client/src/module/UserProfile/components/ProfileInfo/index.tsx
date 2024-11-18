@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 type PropsType = {
   title: string
   info?: string
 }
 
-export const ProfileInfo: FC<PropsType> = ({ title, info }) => {
+export const ProfileInfo: FC<PropsType> = memo(({ title, info }) => {
 
   if (!info) {
     return null;
@@ -17,4 +17,4 @@ export const ProfileInfo: FC<PropsType> = ({ title, info }) => {
       {info}
     </p>
   );
-};
+});

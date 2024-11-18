@@ -87,7 +87,3 @@ export const {
   useResetPasswordMutation,
   useRecoveryPasswordMutation,
 } = usersApi;
-
-export const {
-  endpoints: { login, logout, updateUser, getUserById, register, current, resetPassword, recoveryPassword },
-} = usersApi;

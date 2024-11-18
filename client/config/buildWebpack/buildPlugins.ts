@@ -21,10 +21,6 @@ export function buildPlugins({ mode, paths, analyze }: BuildOptions): Configurat
       extensions: ['ts', 'tsx', 'js', 'jsx'],
       files: paths.config,
     }),
-    // глобальные переменные
-    // new webpack.DefinePlugin({
-    //   __PLATFORM__: JSON.stringify(platform),
-    // }),
   ];
 
   if (isDev) {

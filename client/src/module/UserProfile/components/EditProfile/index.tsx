@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useContext, useState } from 'react';
+import React, { ChangeEvent, FC, memo, useContext, useState } from 'react';
 import { User } from '@/store/types';
 import { ThemeContext } from '@/context';
 import { useUpdateUserMutation } from '@/store/services';
@@ -15,11 +15,11 @@ type PropsType = {
   user?: User
 }
 
-export const EditProfile: FC<PropsType> = ({
-                                             isOpen,
-                                             onClose,
-                                             user,
-                                           }) => {
+export const EditProfile: FC<PropsType> = memo(({
+                                                  isOpen,
+                                                  onClose,
+                                                  user,
+                                                }) => {
   const { theme } = useContext(ThemeContext);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
   const [error, setError] = useState('');
@@ -47,18 +47,12 @@ export const EditProfile: FC<PropsType> = ({
   const onSubmit = async (data: User) => {
     try {
       const formData = new FormData();
-      data.name && formData
-        .append('name', data.name);
-      data.email && data.email !== user.email
-      && formData
-        .append('email', data.email);
-      data.dateOfBirth && formData
-        .append('dateOfBirth', new Date(data.dateOfBirth)
-          .toString());
-      data.bio && formData
-        .append('bio', data.bio);
-      data.location && formData
-        .append('location', data.location);
+      data.name && formData.append('name', data.name);
+      data.email && data.email !== user.email && formData.append('email', data.email);
+      data.dateOfBirth && formData.append('dateOfBirth', new Date(data.dateOfBirth)
+        .toString());
+      data.bio && formData.append('bio', data.bio);
+      data.location && formData.append('location', data.location);
       selectedFile && formData.append('avatar', selectedFile);
       await updateUser({ userData: formData, id }).unwrap();
       onClose();
@@ -147,4 +141,4 @@ export const EditProfile: FC<PropsType> = ({
       </ModalContent>
     </Modal>
   );
-};
+});

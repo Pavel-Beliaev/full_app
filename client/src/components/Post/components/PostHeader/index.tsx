@@ -4,13 +4,13 @@ import { CardUser } from '@/components';
 import { formatToClientDate } from '@/utils/formatToClientDate';
 import { CardHeader, Spinner } from '@nextui-org/react';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
 import { selectCurrent } from '@/store/slices/userSlice';
 import {
   useDeleteCommentMutation,
   useDeletePostMutation,
 } from '@/store/services';
 import { hasErrorField } from '@/utils/hasErrorField';
+import { useAppSelector } from '@/store/hooks';
 
 type PropsType = {
   authorId: string
@@ -32,7 +32,7 @@ export const PostHeader: FC<PropsType> = memo(({
                                                  id,
                                                  setError,
                                                }) => {
-  const currentUser = useSelector(selectCurrent);
+  const currentUser = useAppSelector(selectCurrent);
   const [deletePost, deletePostStatus] = useDeletePostMutation();
   const [deleteComment, deleteCommentStatus] = useDeleteCommentMutation();
   const navigate = useNavigate();
